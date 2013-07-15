@@ -1,12 +1,15 @@
 var util = require('util'),
       ImapConnection = require('imap').ImapConnection;
 
+var fs = require('fs');
+var config = JSON.parse(fs.readFileSync(process.cwd()+"/config.json", "utf-8"));
+
   var imap = new ImapConnection({
-        username: 'randreu@gmail.com',
-        password: 'mangopony377',
-        host: 'imap.gmail.com',
-        port: 993,
-        secure: true
+        username: config.username,
+        password: config.password,
+        host: config.imap.host,
+        port: config.imap.port,
+        secure: config.imap.secure
       });
 
   function show(obj) {
