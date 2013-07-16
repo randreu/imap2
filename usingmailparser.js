@@ -35,19 +35,22 @@ var config = JSON.parse(fs.readFileSync(process.cwd()+"/config.json", "utf-8"));
       if (err) die(err);
       var fetch = imap.fetch(results, {
         request: {
-          headers: ['from'],
+          headers: ['from', 'to', 'subject', 'date'],
 					body : true,
-					struct : false
+					struct : true 
         }
       });
       fetch.on('message', function(msg) {
         console.log('Got a message with sequence number ' + msg.seqno);
 				var mailparser = new MailParser();
-
 				mailparser.on("end", function(mail_object){
-				    console.log("From:", mail_object.from); //[{address:'sender@example.com',name:'Sender Name'}]
-  				  console.log("Subject:", mail_object.subject); // Hello world!
-				    console.log("Text body:", mail_object.text); // How are you today?
+				    //console.log(mail_object.text);
+						console.log('UID: ' + msg.uid);
+        		console.log('Flags: ' + msg.flags);
+        		console.log('Date: ' + msg.date);
+        		console.log('From: ' + msg.headers.from[0]);
+        		//console.log('Body: ' + body);
+						fs.writeFileSync(msg.uid + '_text.txt', mail_object.text );
 				});
 
         msg.on('data', function(chunk) {
@@ -58,7 +61,6 @@ var config = JSON.parse(fs.readFileSync(process.cwd()+"/config.json", "utf-8"));
         });
       });
       fetch.on('end', function() {
-        console.log('Done fetching all messages!');
         imap.logout();
       });
     });
