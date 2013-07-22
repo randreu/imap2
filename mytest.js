@@ -1,5 +1,5 @@
 var util = require('util'),
-      ImapConnection = require('imap').ImapConnection;
+	ImapConnection = require('imap').ImapConnection;
 
 var fs = require('fs');
 var config = JSON.parse(fs.readFileSync(process.cwd()+"/config.json", "utf-8"));
@@ -34,9 +34,9 @@ var config = JSON.parse(fs.readFileSync(process.cwd()+"/config.json", "utf-8"));
       if (err) die(err);
       var fetch = imap.fetch(results, {
         request: {
-          headers: ['from'],
-					body : true,
-					struct : false
+          headers: /*['from']*/ /*true*/ ['message-id'],
+          body : true,
+          struct : false
         }
       });
       fetch.on('message', function(msg) {
