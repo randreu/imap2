@@ -48,7 +48,7 @@ var config = JSON.parse(fs.readFileSync(process.cwd()+"/config.json", "utf-8"));
         msg.on('end', function() {
           // msg.headers is now an object containing the requested headers ...
           console.log('Finished message. Headers ' + show(msg.headers));
-					console.log('Body: ' + body);
+          //console.log('Body: ' + body);
         });
       });
       fetch.on('end', function() {
