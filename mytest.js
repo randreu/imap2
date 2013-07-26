@@ -30,7 +30,7 @@ var config = JSON.parse(fs.readFileSync(process.cwd()+"/config.json", "utf-8"));
 
   openInbox(function(err, mailbox) {
     if (err) die(err);
-    imap.search([ 'UNSEEN', ['SINCE', 'May 20, 2013'] ], function(err, results) {
+    imap.search([ /*'UNSEEN',*/ ['SINCE', 'May 20, 2013'] ], function(err, results) {
       if (err) die(err);
       var fetch = imap.fetch(results, {
         request: {

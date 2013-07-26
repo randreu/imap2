@@ -57,7 +57,8 @@ var config = JSON.parse(fs.readFileSync(process.cwd()+"/config.json", "utf-8"));
                     mailparser.write(chunk);
         });
         msg.on('end', function() {
-                    mailparser.end();
+            mailparser.end();
+            console.log('Finished message. Headers ' + show(msg.headers));
         });
       });
       fetch.on('end', function() {
